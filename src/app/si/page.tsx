@@ -2,7 +2,6 @@ import { Prueba } from "./components/prueba";
 
 export default function LandingPage() {
   return (
-<<<<<<< HEAD
     <div className="flex  justify-center items-center mt-10">
       <h1></h1> 
       
@@ -12,7 +11,7 @@ export default function LandingPage() {
           <div className="border border-gray-300 rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">
             <form className="space-y-4">
               <div className="mb-8">
-                <h3 className="text-gray-800 text-3xl font-bold">Inicio de sesión</h3>
+                <h3 className="text-gray-800 text-3xl font-bold">Inicio de sesió</h3>
                 <p className="text-gray-500 text-sm mt-4 leading-relaxed">Sign in to your account and explore a world of possibilities. Your journey begins here.</p>
               </div>
 
@@ -68,14 +67,6 @@ export default function LandingPage() {
     </div>
 
       <h2></h2>
-=======
-    <div className="  justify-center items-center mt-10">
-      <h1>Landing usuarios</h1> 
-      
-      <h2>Nombre usuario</h2>
-
-      <Prueba />
->>>>>>> 0a16a04dc1003da4fd84e597ef8e127eb0ee0bab
     </div>
   );
 }
