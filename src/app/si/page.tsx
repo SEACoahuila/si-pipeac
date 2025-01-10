@@ -1,8 +1,6 @@
-import { Prueba } from "./components/prueba";
 
 export default function LandingPage() {
   return (
-<<<<<<< HEAD
     <div className="flex  justify-center items-center mt-10">
       <h1></h1> 
       
@@ -39,9 +37,9 @@ export default function LandingPage() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center">
                   <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
-                  <label for="remember-me" className="ml-3 block text-sm text-gray-800">
+                  {/* <label for="remember-me" className="ml-3 block text-sm text-gray-800">
                     Remember me
-                  </label>
+                  </label> */}
                 </div>
 
                 <div className="text-sm">
@@ -68,14 +66,6 @@ export default function LandingPage() {
     </div>
 
       <h2></h2>
-=======
-    <div className="  justify-center items-center mt-10">
-      <h1>Landing usuarios</h1> 
-      
-      <h2>Nombre usuario</h2>
-
-      <Prueba />
->>>>>>> 0a16a04dc1003da4fd84e597ef8e127eb0ee0bab
     </div>
   );
 }
