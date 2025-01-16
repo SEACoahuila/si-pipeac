@@ -47,7 +47,7 @@ export const Login = () => {
             </form>
           </div>
           <div className="max-md:mt-8">
-            <img src="https://firebasestorage.googleapis.com/v0/b/transparenciaseac.appspot.com/o/I7kmevbBVPO8yR9G0mK9%2FkyYlvOBrjgH7F3p5TbcE%2FLogo%20PIPEAC%20%20ampliado%20(1).png?alt=media&token=8ce1e318-ed60-4921-b4ae-ca2872a13854" alt="Dining Experience" />
+            <img src="https://firebasestorage.googleapis.com/v0/b/transparenciaseac.appspot.com/o/I7kmevbBVPO8yR9G0mK9%2FkyYlvOBrjgH7F3p5TbcE%2FLogo%20PIPEAC%20%20ampliado%20(2).png?alt=media&token=489a9dd1-844a-46c9-912b-099b51afcb80" alt="PIPEAC" />
           </div>
         </div>
       </div>
