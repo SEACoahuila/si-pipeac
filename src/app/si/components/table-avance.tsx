@@ -45,7 +45,7 @@ const progressData: Progress[] = [
   { id: 35, projectName: 'Prioridad Estratégica 35', progress: 45 },
 ];
 
-const ProgressTable: React.FC = () => {
+export const ProgressTable: React.FC = () => {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full table-auto">
@@ -86,4 +86,4 @@ const ProgressTable: React.FC = () => {
   );
 };
 
-export default ProgressTable;
+

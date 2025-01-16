@@ -1,5 +1,6 @@
 import React from 'react';
-import ProgressTable from './table-avance';
+import { ProgressTable } from './table-avance';
+
 
 
 export const PrioridadesEstrategicas: React.FC = () => {
