@@ -12,10 +12,12 @@ interface Props {
         nombre: string;
         descripcion: string;
     };
+    completado: boolean;
     datos: {
         title: string;
         content: string;
     }[];}
+    
 
 }
 export default function LineaAccion({data}: Props) {
@@ -37,8 +39,12 @@ export default function LineaAccion({data}: Props) {
 
   return (
     <div className="flex flex-col md:flex-row justify-center items-center bg-gray-800 rounded-3xl">
-      <div className="p-4"> <FaExclamationCircle size={45} color="orange"/></div>
-    {/* <div className="p-4"> <FaCheckCircle size={45} color="green"/></div>  */}
+     { 
+     !data.completado ? <div className="p-4"> <FaExclamationCircle size={45} color="orange"/></div> : 
+     <div className="p-4"> <FaCheckCircle size={45} color="green"/></div>
+     }
+
+   
   <div className=" p-8 rounded-lg shadow-2xl md:w-2/3 w-full">
     {/* Título */}   
     <header className="border-b border-gray-700 pb-3">
@@ -107,8 +113,11 @@ export default function LineaAccion({data}: Props) {
     </section>
       {/* Botón de Enviar */}
       <div className="mt-8 text-center">
-          <button className="px-6 py-3 bg-cyan-700 hover:bg-cyan-800 text-white font-bold rounded-lg shadow-lg transition size-full">
-            Enviar Evidencia
+          <button 
+           className='px-6 py-3 text-white font-bold rounded-lg shadow-lg transition size-full bg-cyan-700 hover:bg-cyan-800 disabled:bg-slate-400 disabled:cursor-not-allowed'
+           disabled={data.completado}
+         >
+          { !data.completado ? "Enviar Evidencia" : "Evidencia enviada"}
           </button>
         </div>
   </div>
