@@ -1,3 +1,4 @@
+import { Title } from "@/app/admin/components/title";
 import LineaAccion from "../components/card-lineas-accion";
 
 export default function LineasAccion() {
@@ -47,6 +48,7 @@ export default function LineasAccion() {
   return (
 
     <div>
+      <Title title="Líneas de Acción"/>
     <div className="grid grid-cols-2 lg:grid-cols-12 gap-6 p-2 bg-slate-150">
  
   { data.map( (item, index) =>

@@ -81,7 +81,7 @@ export default function LineaAccion({data}: Props) {
     <section>
       <h4 className="text-lg font-semibold text-white">Evidencia a Entregar</h4>
       <p className="text-sm text-gray-400 mt-2">
-        Por favor, entregue documentos en formato PDF. Tamaño máximo permitido: 10MB por archivo.
+        Por favor, entregue documentos en formato PDF o imagen. Tamaño máximo permitido: 10MB por archivo.
       </p>
       <div
         className="mt-4 p-6 border-dashed border-2 border-gray-600 rounded-lg bg-gray-700 text-gray-400 text-center hover:bg-gray-600 transition"

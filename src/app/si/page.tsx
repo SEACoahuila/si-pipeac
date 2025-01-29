@@ -1,13 +1,14 @@
-import { PrioridadesEstrategicas } from "./components/com-table";
+import { Title } from "../admin/components/title";
+import { ProgressTable } from "./components/table-avance";
 
 
 
 
 export default function LandingPage() {
   return (
-    <div className="flex  justify-center items-center mt-10">
-      <h1></h1> 
-      < PrioridadesEstrategicas />
+    <div className="justify-center items-center mt-10">
+        <Title title={"Prioridades Estratégicas"} />
+       < ProgressTable />
         
 
 
