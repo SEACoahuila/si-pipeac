@@ -29,13 +29,15 @@ const generateTrimestre = (): string => {
   return '4'; // Trimestre 4
 };
 
+
+
 export const configStore = create<Store>()(
   persist( (set) => ({
     trimestre: generateTrimestre(),
     token: null,
     user: null,
     setUser: (user, token) => set({ user, token }),
-    baseApi: process.env.BASE_API!,
+    baseApi: process.env.BASE_API|| "not API",
     setTrimestre: (trimestre) => set({ trimestre }),
     logout : () => {
       configStore.persist.clearStorage(); // Limpia el almacenamiento

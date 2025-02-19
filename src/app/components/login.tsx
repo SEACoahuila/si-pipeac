@@ -69,6 +69,7 @@ export const Login = () => {
 
   return (
     <div className="font-[sans-serif]">
+     
       <div className="min-h-screen flex fle-col items-center justify-center py-6 px-4">
         <div className="grid md:grid-cols-2 items-center gap-6 max-w-6xl w-full">
           <div className="flex max-lg:mt-8 justify-center items-center">
@@ -82,6 +83,8 @@ export const Login = () => {
             <form className="space-y-4">
               <div className="mb-8">
                 <h3 className="text-gray-800 text-3xl font-bold">
+                <p>Base API</p>
+                {baseApi}
                   Inicio de sesión
                 </h3>
                 <p className="text-gray-500 text-sm mt-4 leading-relaxed">
