@@ -37,7 +37,7 @@ export const configStore = create<Store>()(
     token: null,
     user: null,
     setUser: (user, token) => set({ user, token }),
-    baseApi: process.env.BASE_API|| "not API",
+    baseApi: process.env.NEXT_PUBLIC_BASE_API!,
     setTrimestre: (trimestre) => set({ trimestre }),
     logout : () => {
       configStore.persist.clearStorage(); // Limpia el almacenamiento

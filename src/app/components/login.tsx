@@ -84,7 +84,6 @@ export const Login = () => {
               <div className="mb-8">
                 <h3 className="text-gray-800 text-3xl font-bold">
                 <p>Base API</p>
-                {baseApi}
                   Inicio de sesión
                 </h3>
                 <p className="text-gray-500 text-sm mt-4 leading-relaxed">
