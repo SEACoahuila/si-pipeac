@@ -1,4 +1,5 @@
 import GeneralBarChart from "./components/generalBarChart";
+// import GeneralBarPrioridades from "./components/generalBarPrioridades";
 import { Title } from "./components/title";
 
 export default function AdminPage() {
@@ -10,19 +11,9 @@ export default function AdminPage() {
 <Title title="Panel general" text="Datos" />
   
      <GeneralBarChart />
+    {/* <GeneralBarPrioridades /> */}
       
-    
-      <ol>
-        <li>
-            Entindades avance TABLA
-        </li>
-        <li>
-            Boton elegir el periodo
-        </li>
-        <li>
-            Boton descargar reporte avance
-        </li>
-      </ol>
+
     </div>
   );
 }
