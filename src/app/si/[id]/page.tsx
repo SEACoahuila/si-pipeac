@@ -1,37 +1,38 @@
-"use client";
+"use client"; // Esto convierte el componente en un Client Component
+export const dynamic = 'force-dynamic';
 import Link from "next/link";
 import { Title } from "@/app/admin/components/title";
 import LineaAccion from "../components/card-lineas-accion";
 import { useParams } from "next/navigation";
 import usePrioridadesStore from "@/app/store/generalStore";
-import { useEffect,  } from "react";
+import { useEffect } from "react";
 import { TiArrowBack } from "react-icons/ti";
 
 export default function LineasAccion() {
-  const params = useParams<{ id: string }>();
+  const params = useParams<{ id: string }>(); // Obtén el parámetro dinámico [id]
   const { prioridades, getPrioridades } = usePrioridadesStore();
-  // const [lineas, setLineas] = useState([]);
 
+  // Carga las prioridades al montar el componente
   useEffect(() => {
     getPrioridades();
-  }, []); // ⚠️ Removemos `params` como dependencia
+  }, [getPrioridades]);
 
-  // 🛑 Verificamos que `prioridades` y `prioridades.Prioridades` existen
+  // Muestra un mensaje de carga mientras se obtienen los datos
   if (!prioridades || !prioridades.Prioridades) {
     return <p>Loading...</p>;
   }
 
-  console.log(prioridades.Prioridades);
-
+  // Filtra la prioridad específica basada en el parámetro [id]
   const prioriodadFiltrada = prioridades.Prioridades.find(
     (item) => item.numero_prioridad === params.id
   );
 
-  // 🔹 Si `prioriodadFiltrada` no existe, prevenimos errores
+  // Si no se encuentra la prioridad, muestra un mensaje de error
   if (!prioriodadFiltrada) {
     return <p>No se encontró la prioridad estratégica.</p>;
   }
 
+  // Renderiza la página
   return (
     <div>
       <div className="bg-slate-800">
