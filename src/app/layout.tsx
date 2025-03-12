@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SI PIPEAC",
+  title: "Monitor SEA",
   description: "Sistema de indicadores ",
 };
 
