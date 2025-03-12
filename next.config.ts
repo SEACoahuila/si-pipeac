@@ -8,8 +8,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
-  swcMinify: true,
-  output: 'standalone', 
+  output: "export",
 };
 
 export default nextConfig;
