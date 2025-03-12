@@ -24,37 +24,38 @@ interface Entidad {
     siglas: string;
   
 }
-// Convertir objetos a CSV (excluyendo el campo "password")
-// Convertir objetos a CSV (excluyendo el campo "password")
+
 function convertArrayOfObjectsToCSV(array: User[]) {
   const columnDelimiter = ',';
   const lineDelimiter = '\n';
 
   // Transformar los datos para aplanar objetos anidados
-  const transformedData = array.map((item: User) => ({
+  const transformedData = array.map((item) => ({
     ...item,
     entidad: item.entidad.nombre_entidad, // Extraer solo el nombre de la entidad
   }));
 
-  const keys = Object.keys(transformedData[0]).filter((key) => key !== 'password'); // Excluir "password"
+  // Definir las claves válidas, excluyendo "password"
+  const keys: (keyof typeof transformedData[0])[] = Object.keys(transformedData[0]).filter(
+    (key) => key !== 'password'
+  ) as (keyof typeof transformedData[0])[];
 
   let result = '';
-  result += keys.join(columnDelimiter); // Añadir las claves como cabecera
+  result += keys.join(columnDelimiter); // Cabecera CSV
   result += lineDelimiter;
 
   transformedData.forEach((item) => {
     keys.forEach((key, index) => {
       if (index > 0) result += columnDelimiter;
-      result += `"${item[key]}"`; // Escapar valores con comillas para manejar comas y saltos de línea
+      result += `"${item[key as keyof typeof item]}"`; // ✅ Ahora TypeScript reconoce la clave como válida
     });
     result += lineDelimiter;
   });
 
   return result;
 }
-
 // Función para descargar CSV
-function downloadCSV(array: object[]) {
+function downloadCSV(array: User[]) {
   const link = document.createElement('a');
   let csv = convertArrayOfObjectsToCSV(array);
   if (csv == null) return;
@@ -123,7 +124,7 @@ const columns = columnConfig.map((col) => {
   }
   return {
     name: col.name,
-    selector: (row: any) => row[col.key],
+    selector: (row: any ) => row[col.key],
     sortable: true,
   };
 });
