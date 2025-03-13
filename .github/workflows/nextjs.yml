@@ -65,7 +65,13 @@ jobs:
 
       - name: Build with Next.js
         env:
-          NEXT_PUBLIC_BASE_API: ${{ secrets.NEXT_PUBLIC_BASE_API }}  # Usa la variable de entorno desde los secrets
+          NEXT_PUBLIC_BASE_API: ${{ secrets.NEXT_PUBLIC_BASE_API }}
+          NEXT_PUBLIC_STORAGEBUCKET: ${{ secrets.NEXT_PUBLIC_STORAGEBUCKET }} 
+          NEXT_PUBLIC_APIKEY: ${{ secrets.NEXT_PUBLIC_APIKEY }}  # Secret
+          NEXT_PUBLIC_AUTHDOMAIN: ${{ secrets.NEXT_PUBLIC_AUTHDOMAIN }}  # Secret o valor directo
+          NEXT_PUBLIC_PROJECTID: ${{ secrets.NEXT_PUBLIC_PROJECTID }}  # Secret
+          NEXT_PUBLIC_MESASAGINGSENDERID: ${{ secrets.NEXT_PUBLIC_MESASAGINGSENDERID }}  # Secret
+          NEXT_PUBLIC_APPID: ${{ secrets.NEXT_PUBLIC_APPID }}  # Secret
         run: ${{ steps.detect-package-manager.outputs.runner }} next build --no-lint
 
       - name: Upload artifact
