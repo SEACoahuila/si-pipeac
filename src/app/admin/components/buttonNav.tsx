@@ -21,7 +21,7 @@ export const ButtonNav = () => {
   return (
     <>
  
-    <div className="flex w-full  rounded shadow">
+    <div className="flex w-full sm:flex-nowrap flex-wrap  rounded shadow">
     <Link href="/admin" aria-current="false"
  className="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100">
       <FaChartPie size={25} color='#E91E63'/>  Avance general
@@ -42,7 +42,7 @@ export const ButtonNav = () => {
     
     <select
       id="trimestres"
-      className=" items-center text-left  justify-center font-medium  px-5 py-2  bg-slate-800  hover:bg-slate-700 text-white"
+      className=" items-center text-left w-full justify-center font-medium  px-5 py-2  bg-slate-800  hover:bg-slate-700 text-white"
       value={trimestre}
       onChange={handleChange}
     >
