@@ -20,7 +20,6 @@ export default function LandingPage() {
     return <div>Loading...</div>;
   }
 
-console.log(prioridades);
   return (
     <div className="justify-center items-center mt-10">
         <Title title={"Prioridades Estratégicas"} />

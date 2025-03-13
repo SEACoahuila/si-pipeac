@@ -18,7 +18,6 @@ interface Props {
 export default function LineaAccion({ linea }: Props) {
   const user = configStore((state) => state.user);
   const trimestre = configStore((state) => state.trimestre);
-  console.log(linea);
   let completado = true;
   if (linea.cumplimientos.length > 0) {
     completado = false;
