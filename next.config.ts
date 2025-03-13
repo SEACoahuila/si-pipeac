@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
-  output: "export",
+  // output: "export",
 };
 
 export default nextConfig;
