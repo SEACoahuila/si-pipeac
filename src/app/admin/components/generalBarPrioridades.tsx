@@ -99,8 +99,8 @@ const GeneralBarPrioridades: React.FC = () => {
           : b.numero_prioridad.localeCompare(a.numero_prioridad);
       } else if (sortColumn === 'porcentaje_avance') {
         return sortDirection === 'asc'
-          ? a.porcentaje_avance - b.porcentaje_avance
-          : b.porcentaje_avance - a.porcentaje_avance;
+          ? parseFloat(a.porcentaje_avance) - parseFloat(b.porcentaje_avance)
+          : parseFloat(b.porcentaje_avance) - parseFloat(a.porcentaje_avance);
       } else if (sortColumn === 'total_lineas') {
         return sortDirection === 'asc'
           ? a.total_lineas - b.total_lineas
