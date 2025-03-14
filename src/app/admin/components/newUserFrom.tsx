@@ -115,7 +115,7 @@ export const NewUserFrom = () => {
             <p className="text-gray-600 dark:text-gray-300 mb-6">
               Por favor, ingresa los datos necesarios para registrar un nuevo usuario.
             </p>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='text-black'>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <input
                   name="nombre"
@@ -147,7 +147,7 @@ export const NewUserFrom = () => {
                   className="border p-2 rounded w-full"
                   required
                 >
-                  <option value="">Selecciona una entidad</option>
+                  <option value="" >Selecciona una entidad</option>
                   {entidades.map((entidad) => (
                     <option key={entidad.id_entidad} value={entidad.id_entidad}>
                       {entidad.nombre_entidad} ({entidad.siglas})
