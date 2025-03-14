@@ -1,14 +1,22 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { configStore } from '@/app/store/generalStore';
+import { Title } from './title';
 
 interface Prioridad {
   numero_prioridad: string;
   total_lineas: number;
   lineas_cumplidas: number;
-  porcentaje_avance: number;
+  porcentaje_avance: string;
+}
+
+interface TableColumn {
+  key: string;
+  label: string;
+  sortable?: boolean;
+  align?: 'left' | 'center' | 'right';
 }
 
 const GeneralBarPrioridades: React.FC = () => {
@@ -18,6 +26,17 @@ const GeneralBarPrioridades: React.FC = () => {
   const [data, setData] = useState<Prioridad[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [sortColumn, setSortColumn] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
+  // Columnas de la tabla
+  const columns: TableColumn[] = [
+    { key: 'numero_prioridad', label: 'Prioridades', sortable: true, align: 'left' },
+    { key: 'porcentaje_avance', label: 'Avance', sortable: true, align: 'center' },
+    { key: 'total_lineas', label: 'Total líneas', sortable: true, align: 'center' },
+    { key: 'lineas_cumplidas', label: 'Terminadas', sortable: true, align: 'center' },
+    { key: 'por_completar', label: 'Por completar', sortable: true, align: 'center' },
+  ];
 
   // Función para obtener datos de la API
   const getDataChart = async () => {
@@ -33,7 +52,15 @@ const GeneralBarPrioridades: React.FC = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setData(response.data);
+      const transformedData = response.data.map((item: Prioridad) => {
+        const porcentaje = parseFloat(item.porcentaje_avance); // Convertir a número
+        return {
+          ...item,
+          porcentaje_avance: isNaN(porcentaje) ? 0 : parseFloat(porcentaje.toFixed(2)), // Manejar casos no numéricos
+        };
+      });
+      console.log('Datos obtenidos:', transformedData);
+      setData(transformedData);
       setError(null);
     } catch (error) {
       console.error('Error al obtener los datos:', error);
@@ -43,22 +70,77 @@ const GeneralBarPrioridades: React.FC = () => {
     }
   };
 
+  // Efecto para cargar datos cuando baseApi, token y trimestre estén listos
+  useEffect(() => {
+    if (baseApi && token && trimestre) {
+      setLoading(true); // Activar el estado de carga
+      setData(null); // Limpiar los datos anteriores
+      getDataChart(); // Obtener los nuevos datos
+    }
+  }, [baseApi, token, trimestre]); // Dependencias del useEffect
+
+  // Función para manejar el ordenamiento
+  const handleSort = (column: string) => {
+    if (sortColumn === column) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortColumn(column);
+      setSortDirection('asc');
+    }
+  };
+
+  // Función para ordenar los datos
+  const sortedData = useMemo(() => {
+    if (!data) return [];
+    return [...data].sort((a, b) => {
+      if (sortColumn === 'numero_prioridad') {
+        return sortDirection === 'asc'
+          ? a.numero_prioridad.localeCompare(b.numero_prioridad)
+          : b.numero_prioridad.localeCompare(a.numero_prioridad);
+      } else if (sortColumn === 'porcentaje_avance') {
+        return sortDirection === 'asc'
+          ? a.porcentaje_avance - b.porcentaje_avance
+          : b.porcentaje_avance - a.porcentaje_avance;
+      } else if (sortColumn === 'total_lineas') {
+        return sortDirection === 'asc'
+          ? a.total_lineas - b.total_lineas
+          : b.total_lineas - a.total_lineas;
+      } else if (sortColumn === 'lineas_cumplidas') {
+        return sortDirection === 'asc'
+          ? a.lineas_cumplidas - b.lineas_cumplidas
+          : b.lineas_cumplidas - a.lineas_cumplidas;
+      } else if (sortColumn === 'por_completar') {
+        const porCompletarA = a.total_lineas - a.lineas_cumplidas;
+        const porCompletarB = b.total_lineas - b.lineas_cumplidas;
+        return sortDirection === 'asc'
+          ? porCompletarA - porCompletarB
+          : porCompletarB - porCompletarA;
+      }
+      return 0;
+    });
+  }, [data, sortColumn, sortDirection]);
+
   // Función para descargar los datos en formato CSV
   const descargarDatos = () => {
     if (!data) return;
 
-    // Crear el contenido del CSV
     const csvContent =
-      'data:text/csv;charset=utf-8,\uFEFF' + // Agregar BOM para UTF-8
-      'Número de Prioridad,Total de Líneas,Líneas Cumplidas,Porcentaje de Avance\n' + // Cabecera
+      'data:text/csv;charset=utf-8,\uFEFF' +
+      columns.map((col) => col.label).join(',') +
+      '\n' +
       data
-        .map(
-          (prioridad) =>
-            `"${prioridad.numero_prioridad}",${prioridad.total_lineas},${prioridad.lineas_cumplidas},${prioridad.porcentaje_avance}`
+        .map((item) =>
+          columns
+            .map((col) => {
+              if (col.key === 'por_completar') {
+                return item.total_lineas - item.lineas_cumplidas;
+              }
+              return item[col.key as keyof Prioridad];
+            })
+            .join(',')
         )
         .join('\n');
 
-    // Codificar el contenido y crear el enlace de descarga
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
@@ -67,13 +149,6 @@ const GeneralBarPrioridades: React.FC = () => {
     link.click();
     document.body.removeChild(link);
   };
-
-  // Efecto para cargar datos cuando baseApi, token y trimestre estén listos
-  useEffect(() => {
-    if (baseApi && token && trimestre) {
-      getDataChart();
-    }
-  }, [baseApi, token, trimestre]);
 
   // Mensaje de carga
   if (loading) {
@@ -87,7 +162,8 @@ const GeneralBarPrioridades: React.FC = () => {
 
   return (
     <div className="p-4 justify-center overflow-x-auto">
-      {/* Botón para descargar los datos */}
+      <Title title="Avance por prioridad" />
+
       <div className="flex justify-end gap-2 mb-3">
         <button
           onClick={descargarDatos}
@@ -101,41 +177,48 @@ const GeneralBarPrioridades: React.FC = () => {
       <table className="min-w-full table-auto border border-slate-600 rounded-lg shadow-lg">
         <thead>
           <tr className="bg-slate-800 text-white">
-            <th className="px-4 py-3 text-left">Prioridades</th>
-            <th className="px-4 py-3 text-center">Avance</th>
-            <th className="px-4 py-3 text-center">Total líneas</th>
-            <th className="px-4 py-3 text-center">Terminadas</th>
-            <th className="px-4 py-3 text-center">Por completar</th>
+            {columns.map((column) => (
+              <th
+                key={column.key}
+                className={`px-4 py-3 text-${column.align} ${
+                  column.sortable ? 'cursor-pointer' : ''
+                }`}
+                onClick={() => column.sortable && handleSort(column.key)}
+              >
+                {column.label}
+                {column.sortable && sortColumn === column.key && (
+                  <span>{sortDirection === 'asc' ? ' ▲' : ' ▼'}</span>
+                )}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {data?.map((item) => (
-            <tr key={item.numero_prioridad} className="border-b border-slate-600 hover:bg-slate-300 transition-colors">
-              <td className="px-4 py-3 flex items-center">
-                <span className="text-sm">
-                  {"Prioridad Estratégica N° " + item.numero_prioridad}
-                </span>
-              </td>
-              <td className="px-4 py-3">
-                <div className="flex items-center justify-center">
-                  <div className="w-full bg-gray-600 rounded-full h-2.5">
-                    <div
-                      className="bg-cyan-500 h-2.5 rounded-full transition-all duration-300"
-                      style={{ width: `${item.porcentaje_avance}%` }}
-                    ></div>
-                  </div>
-                  <span className="ml-2 text-sm font-semibold">
-                    {Number(item.porcentaje_avance).toFixed(2)}%
-                  </span>
-                </div>
-              </td>
-              <td className="px-4 py-3 text-center text-sm">{item.total_lineas}</td>
-              <td className="px-4 py-3 text-center text-sm">{item.lineas_cumplidas}</td>
-              <td className="px-4 py-3 text-center text-sm">
-                {item.total_lineas - item.lineas_cumplidas}
+          {sortedData.length > 0 ? (
+            sortedData.map((item) => (
+              <tr
+                key={item.numero_prioridad}
+                className="border-b border-slate-600 hover:bg-slate-300 transition-colors text-black"
+              >
+                {columns.map((column) => (
+                  <td
+                    key={column.key}
+                    className={`px-4 py-3 text-${column.align}`}
+                  >
+                    {column.key === 'por_completar'
+                      ? item.total_lineas - item.lineas_cumplidas
+                      : item[column.key as keyof Prioridad]}
+                  </td>
+                ))}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={columns.length} className="px-4 py-3 text-center text-sm text-black">
+                No hay datos disponibles.
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

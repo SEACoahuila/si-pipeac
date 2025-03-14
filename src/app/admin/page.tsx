@@ -1,5 +1,5 @@
 import GeneralBarChart from "./components/generalBarChart";
-// import GeneralBarPrioridades from "./components/generalBarPrioridades";
+import GeneralBarPrioridades from "./components/generalBarPrioridades";
 import { Title } from "./components/title";
 
 export default function AdminPage() {
@@ -11,7 +11,7 @@ export default function AdminPage() {
 <Title title="Panel general" text="Datos" />
   
      <GeneralBarChart />
-    {/* <GeneralBarPrioridades /> */}
+    <GeneralBarPrioridades />
       
 
     </div>

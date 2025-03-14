@@ -8,11 +8,13 @@ import { useEffect } from "react";
 
 export default function LandingPage() {
   // const token = configStore((state) => state.pretoken)
-  const trimestre = configStore((state) => state.trimestre)
+  const trimestre = 1
   const { prioridades, getPrioridades } = usePrioridadesStore();
 
   
   useEffect(() => {
+
+
     getPrioridades()
   }, [trimestre])
 

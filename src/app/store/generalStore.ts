@@ -57,10 +57,10 @@ export const configStore = create<Store>()(
   getPrioridades: async () => {
     const baseUrl = configStore.getState().baseApi;
     const token = configStore.getState().token;
-    const trimestre = configStore.getState().trimestre;
+    // const trimestre = configStore.getState().trimestre;
 
     try {
-      const response = await axios.get<Data>(`${baseUrl}/data/all/${trimestre}`, {
+      const response = await axios.get<Data>(`${baseUrl}/data/all/1`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

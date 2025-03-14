@@ -22,7 +22,7 @@ interface ProgressTableProps {
     </thead>
     <tbody>
       {datos.map((item) => (
-        <tr key={item.numero_prioridad} className="border-b border-slate-600 hover:bg-slate-300 transition-colors">
+        <tr key={item.numero_prioridad} className="border-b border-slate-600 hover:bg-slate-300 transition-colors text-black">
           <td className="px-4 py-3 flex items-center">
             {item.datos.progress === 100 ? (
               <FaBullseye size={20} className="mr-3 text-green-500" /> // Ícono para tareas completadas

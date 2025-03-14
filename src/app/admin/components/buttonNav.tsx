@@ -50,7 +50,7 @@ export const ButtonNav = () => {
       <option value="2">{`Segundo Trimestre ${new Date().getFullYear()}`}</option>
       <option value="3">{`Tercer Trimestre ${new Date().getFullYear()}`}</option>
       <option value="4">{`Cuarto Trimestre ${new Date().getFullYear()}`}</option>
-      {/* <option value="general">{`General `}</option> */}
+      <option value="general">{`General `}</option>
     </select>
 
 </div>
