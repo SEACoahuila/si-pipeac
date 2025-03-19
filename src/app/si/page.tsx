@@ -14,8 +14,12 @@ export default function LandingPage() {
   const trimestre = 1
   const { prioridades, getPrioridades } = usePrioridadesStore();
   const {user } = configStore()
+  const [isHydrated, setIsHydrated] = useState(false); 
   
-
+  
+  useEffect(() => {
+    setIsHydrated(true); // Marcamos como hidratado después del primer render
+  }, []);
   
   useEffect(() => {
 
@@ -25,11 +29,12 @@ export default function LandingPage() {
   }, [trimestre])
 
   useEffect(() => { 
+    if (!isHydrated) return;
     if (!user || user.entidad.nombre_entidad === "SEA") {
       router.push('/') 
     }
     getPrioridades()
-  }   , [user, trimestre])
+  }   , [user, isHydrated])
 
   if (!prioridades) {
     return <div>Loading...</div>;
