@@ -35,8 +35,7 @@ export const configStore = create<Store>()(
   persist( (set) => ({
     trimestre: generateTrimestre(),
     token: null,
-    user: null,
-    setUser: (user, token) => set({ user, token }),
+    user: null,    setUser: (user, token) => set({ user, token }),
     baseApi: process.env.NEXT_PUBLIC_BASE_API!,
     setTrimestre: (trimestre) => set({ trimestre }),
     logout : () => {
@@ -66,8 +65,14 @@ export const configStore = create<Store>()(
         },
       });
       set({ prioridades: response.data }); // Actualiza el estado del store
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          configStore.getState().logout();
+        }
+      } else {
+        console.log(error);
+      }
     }
   },
 }));

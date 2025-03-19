@@ -4,19 +4,30 @@ import { Title } from "../admin/components/title";
 import { ProgressTable } from "./components/table-avance";
 import usePrioridadesStore, { configStore } from '@/app/store/generalStore'
 import { useEffect } from "react";
+import { useRouter } from 'next/navigation';
 
 
 export default function LandingPage() {
   // const token = configStore((state) => state.pretoken)
+    const router = useRouter();
+  
   const trimestre = 1
   const { prioridades, getPrioridades } = usePrioridadesStore();
-
-  
+  const {user } = configStore()
+  const hasHydrated = configStore.persist.hasHydrated(); 
   useEffect(() => {
 
+  
+      getPrioridades()
 
-    getPrioridades()
   }, [trimestre])
+
+  useEffect(() => { 
+    if (!hasHydrated) return;
+    if (!user || user.entidad.nombre_entidad === "SEA") {
+      router.push('/') 
+    }
+  }   , [user])
 
   if (!prioridades) {
     return <div>Loading...</div>;
