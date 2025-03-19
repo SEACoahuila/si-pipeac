@@ -3,7 +3,7 @@
 import { Title } from "../admin/components/title";
 import { ProgressTable } from "./components/table-avance";
 import usePrioridadesStore, { configStore } from '@/app/store/generalStore'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 
 
@@ -14,7 +14,9 @@ export default function LandingPage() {
   const trimestre = 1
   const { prioridades, getPrioridades } = usePrioridadesStore();
   const {user } = configStore()
-  const hasHydrated = configStore.persist.hasHydrated(); 
+  
+
+  
   useEffect(() => {
 
   
@@ -23,11 +25,11 @@ export default function LandingPage() {
   }, [trimestre])
 
   useEffect(() => { 
-    if (!hasHydrated) return;
     if (!user || user.entidad.nombre_entidad === "SEA") {
       router.push('/') 
     }
-  }   , [user])
+    getPrioridades()
+  }   , [user, trimestre])
 
   if (!prioridades) {
     return <div>Loading...</div>;
