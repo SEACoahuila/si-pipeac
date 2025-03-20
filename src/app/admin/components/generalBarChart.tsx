@@ -5,6 +5,7 @@ import * as echarts from 'echarts';
 import axios from 'axios';
 import { configStore } from '@/app/store/generalStore';
 import { Entidad } from '@/app/interfaces/resposeAvance';
+import { useRouter } from 'next/navigation';
 
 const GeneralBarChart: React.FC = () => {
   const chartRef = useRef<HTMLDivElement>(null);
@@ -17,6 +18,7 @@ const GeneralBarChart: React.FC = () => {
   const [totalInstituciones, setTotalInstituciones] = useState<number>(0); // Estado para el total de instituciones
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter()
 
   // Función para obtener datos de la API
   const getDataChart = async () => {
@@ -36,7 +38,14 @@ const GeneralBarChart: React.FC = () => {
       calcularAvanceGeneral(response.data);
       setTotalInstituciones(response.data.length); // Calcular el total de instituciones
       setError(null);
-    } catch (error) {
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          configStore.getState().logout();
+          router.push('/')
+
+        }
+      }
       console.error('Error al obtener los datos:', error);
       setError('Error al cargar los datos. Verifica tu conexión y vuelve a intentarlo.');
     } finally {

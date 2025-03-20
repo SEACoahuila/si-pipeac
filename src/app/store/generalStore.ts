@@ -13,6 +13,7 @@ type Store = {
   baseApi: string
   setTrimestre: (trimestre: string) => void;
   logout: () => void
+  setActualTrimestre: () => string
 }
 
 interface PrioridadesStore {
@@ -21,7 +22,7 @@ interface PrioridadesStore {
   getPrioridades: () => Promise<void>
 }
 
-const generateTrimestre = (): string => {
+export const generateTrimestre = (): string => {
   const month = new Date().getMonth() + 1; // getMonth() devuelve 0-11, sumamos 1 para obtener 1-12
   if (month >= 1 && month <= 3) return '1'; // Trimestre 1
   if (month >= 4 && month <= 6) return '2'; // Trimestre 2
@@ -42,6 +43,11 @@ export const configStore = create<Store>()(
       configStore.persist.clearStorage(); // Limpia el almacenamiento
       configStore.setState({ user: null, token: null })
       ; // Reinicia el estado
+    },
+    setActualTrimestre: () => {
+      const trimestre = generateTrimestre()
+      set({ trimestre })
+      return trimestre;
     }
   }), 
   { name: 'config-store',

@@ -9,6 +9,7 @@ export const Login = () => {
   const setUser = configStore((state) => state.setUser);
   const baseApi = configStore((state) => state.baseApi);
   const user = configStore((state) => state.user);
+  const setActualTrimestre = configStore((state) => state.setActualTrimestre);
   const router = useRouter();
   // Usa useRouter para redireccionar
 
@@ -49,7 +50,10 @@ export const Login = () => {
 
       // Si el login es exitoso, redirige al usuario
       if (loginUser.data) {
-        setUser(loginUser.data, loginUser.data.token); // Guarda los datos del usuario en el store
+        // Guarda los datos del usuario en el store
+        setUser(loginUser.data, loginUser.data.token);
+        //  Asegura que al iniciar sesión se actualice el trimestre actual
+        setActualTrimestre()
         // router.push('/dashboard'); // Redirige al usuario a la página de dashboard
       }
 
@@ -69,7 +73,7 @@ export const Login = () => {
 
   return (
     <div className="font-[sans-serif]">
-     
+    
       <div className="min-h-screen flex fle-col items-center justify-center py-6 px-4">
         <div className="grid md:grid-cols-2 items-center gap-6 max-w-6xl w-full">
           <div className="flex max-lg:mt-8 justify-center items-center">
