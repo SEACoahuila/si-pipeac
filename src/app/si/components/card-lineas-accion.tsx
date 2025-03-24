@@ -148,16 +148,16 @@ export default function LineaAccion({ linea }: Props) {
           <textarea
             className="mt-1 w-full bg-gray-600 text-gray-200 p-2 rounded-md border border-gray-500 focus:ring-1 focus:ring-amber-400 focus:outline-none"
             rows={3}
-            placeholder="Escriba aquí la descripción de la evidencia que entregará."
+            placeholder="Escriba aquí la descripción de la evidencia a entregar."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </section>
 
         <section className="mt-4">
-          <h4 className="text-md font-semibold text-white">Evidencia a Entregar</h4>
+          <h4 className="text-md font-semibold text-white">Carga de evidencia</h4>
           <p className="text-xs text-gray-300 mt-1">
-            Por favor, entregue documentos en formato PDF o imagen. Tamaño máximo permitido: 10MB por archivo.
+            La carga de documentos deberá realizarse en formato PDF o imagen, con un tamaño máximo de 10MB por archivo.
           </p>
           <div
             className="mt-2 p-4 border-dashed border-2 border-gray-500 rounded-md bg-gray-600 text-gray-300 text-center hover:bg-gray-500 transition"
