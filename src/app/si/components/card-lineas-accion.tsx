@@ -9,6 +9,7 @@ import { TbFolderCheck } from "react-icons/tb";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 
 interface Props {
@@ -185,9 +186,14 @@ export default function LineaAccion({ linea }: Props) {
                 key={index}
                 className="text-xs text-gray-300 truncate bg-gray-600 px-2 py-1 rounded-md"
               >
-                {file.name}
+                {file.name} 
+                
               </li>
             ))}
+            {
+              files.length >= 1 ? <button className="ml-2 flex text-white items-center text-xs hover:bg-slate-900 p-1 rounded-md" onClick={ () => {setFiles([])}}><FaRegTrashCan color="white" className="mr-1" /> Eliminar</button> : ""
+            }
+           
           </ul>
         </section>
 
