@@ -165,7 +165,7 @@ export const Login = () => {
                   className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-lg text-white bg-yellow-500 hover:bg-blue-700 focus:outline-none"
                   onClick={handleSubmit}
                 >
-                  Sign in
+                  Iniciar sesión
                 </button>
                 {error && ( // Muestra el mensaje de error si existe
                 <div className="text-white mt-2 text-sm mb-4 bg-red-400">
