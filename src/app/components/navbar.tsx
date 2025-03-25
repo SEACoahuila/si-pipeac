@@ -32,7 +32,7 @@ export const Navbar = () => {
       
         <div className="flex items-center space-x-4">
           <h3 className='text-amber-500 font-bold font-mono'>{ user ? user.correo : ""}</h3>
-          { user ? <button onClick={handleLogout} className="text-white hover:text-blue-300 transition-colors duration-300"><IoMdLogOut size={30}/>Salir</button>: ""}
+          { user ? <button onClick={handleLogout} className="text-white hover:text-blue-300 transition-colors duration-300"><IoMdLogOut size={30}/>Cerrar sesión</button>: ""}
         
         </div>
       </div>
