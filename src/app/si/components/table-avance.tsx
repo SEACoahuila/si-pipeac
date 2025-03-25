@@ -15,7 +15,7 @@ interface ProgressTableProps {
         <th className="px-4 py-3 text-left">Prioridades</th>
         <th className="px-4 py-3 text-center">Avance</th>
         <th className="px-4 py-3 text-center">Total líneas</th>
-        <th className="px-4 py-3 text-center">Terminadas</th>
+        <th className="px-4 py-3 text-center">Completadas</th>
         <th className="px-4 py-3 text-center">Por completar</th>
         <th className="px-4 py-3 text-center">Revisar</th>
       </tr>
