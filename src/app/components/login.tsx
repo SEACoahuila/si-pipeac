@@ -11,6 +11,7 @@ export const Login = () => {
   const user = configStore((state) => state.user);
   const setActualTrimestre = configStore((state) => state.setActualTrimestre);
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   // Usa useRouter para redireccionar
 
   const [formData, setFormData] = useState({
@@ -108,7 +109,7 @@ export const Login = () => {
                     value={formData.correo}
                     onChange={handleChange}
                     className="w-full text-sm text-gray-800 border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                    placeholder="Enter user name"
+                    placeholder="Ingresa tu usuario"
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -137,27 +138,48 @@ export const Login = () => {
                 <div className="relative flex items-center">
                   <input
                     name="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"} // Cambia el tipo según el estado
                     value={formData.password}
                     onChange={handleChange}
                     required
                     className="w-full text-sm text-gray-800 border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                    placeholder="Enter password"
+                    placeholder="Ingresa tu contraseña"
                   />
-                  <svg
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                  >
+                    {showPassword ? (
+                      // Ícono de ojo cerrado
+                      <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="#bbb"
+                      stroke="#bbb"
+                      className="w-[18px] h-[18px] cursor-pointer"
+                      viewBox="0 0 128 128"
+                    >
+                      <path
+                        d="M64 24C22.127 24 1.367 60.504.504 62.057a4 4 0 0 0 0 3.887C1.367 64.504 22.127 104 64 104s62.633-39.496 63.496-41.057a4 4 0 0 0 0-3.887C126.633 60.504 105.873 24 64 24zm0 72c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm-7.07-35.07a4 4 0 0 1 5.66 0l8.49 8.49 8.49-8.49a4 4 0 1 1 5.66 5.66l-8.49 8.49 8.49 8.49a4 4 0 1 1-5.66 5.66l-8.49-8.49-8.49 8.49a4 4 0 1 1-5.66-5.66l8.49-8.49-8.49-8.49a4 4 0 0 1 0-5.66z"
+                      />
+                    </svg>
+                    ) : (
+                     // Ícono de ojo abierto
+                    <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="#bbb"
                     stroke="#bbb"
-                    className="w-[18px] h-[18px] absolute right-4 cursor-pointer"
+                    className="w-[18px] h-[18px] cursor-pointer"
                     viewBox="0 0 128 128"
-                  >
+                    >
                     <path
                       d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z"
-                      data-original="#000000"
-                    ></path>
+                    />
                   </svg>
-                </div>
+                    )}
+                </button>
               </div>
+            </div>
 
               <div className="!mt-8">
                 <button
