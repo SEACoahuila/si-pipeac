@@ -102,7 +102,7 @@ export default function InstitucionesPage() {
     <div>
       <Title
         title="Instituciones"
-        text="Creación de nueva institución y detalles de avance"
+        text="Detalles de avance"
       />
 
       <div className="p-5 text-center text-2xl font-bold">
