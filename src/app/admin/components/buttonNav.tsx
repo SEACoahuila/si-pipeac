@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { FaChartPie, FaUserCircle } from 'react-icons/fa';
-import { TbBuildingPlus } from 'react-icons/tb';
+import { TbBuildingPlus, TbListCheck } from 'react-icons/tb';
 
 import Link from 'next/link'
 import { configStore } from '@/app/store/generalStore';
@@ -32,11 +32,18 @@ export const ButtonNav = () => {
  <FaUserCircle  size={25} color='teal'/> 
    Usuarios
     </Link>
+    
 
     <Link href="/admin/instituciones" aria-current="false"
         className="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100">
        <TbBuildingPlus size={25} color='#0c6cad'/>
        Instituciones
+
+    </Link>
+       <Link href="/admin/revision" aria-current="false"
+        className="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100">
+       <TbListCheck  size={25} color='#0c6cad'/>
+       Revisión
 
     </Link>
     
