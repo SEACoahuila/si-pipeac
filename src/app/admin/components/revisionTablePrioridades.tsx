@@ -76,8 +76,14 @@ const getData = async () => {
     const filteredData = response.data.filter((item: Cumplimiento) => {
         return item.revisado_sea === false;
       } );
-
-    setData(filteredData);
+    const datechange = filteredData.map((item: Cumplimiento) => {
+      const fechaFormateada = new Date( item.fecha_cumplimiento).toLocaleString("es-MX", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      });
+      return { ...item, fecha_cumplimiento: fechaFormateada };
+    } );
+    setData(datechange);
     setLoading(false); // Desactivar el estado de carga
   } catch (error) {
     console.error('Error al obtener los datos:', error);
