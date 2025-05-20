@@ -14,12 +14,25 @@ interface Cumplimiento {
     descripcion: string;
     url_pruebas: string;
     id_entidad: Entidad;
+    id_prioridad: Prioridad;
 }
 
 interface Entidad {
   id_entidad: string;
   nombre_entidad: string;
   siglas: string;
+}
+
+export interface Prioridad {
+  id_prioridad: string;
+  numero_la: string;
+  numero_prioridad: string;
+  prioridad: string;
+  objetivo: string;
+  estrategia: string;
+  linea_de_accion: string;
+  accion_a_realizar: string;
+  evidencia_necesaria: string;
 }
 
 interface TableColumn {
@@ -38,6 +51,8 @@ const [data, setData] = useState<Cumplimiento[] | []>([]);
  
   const columns: TableColumn[] = [
     { key: 'fecha_cumplimiento', label: 'Fecha', sortable: true, align: 'left' },
+    { key: 'id_prioridad', label: 'Prioridad', sortable: true, align: 'center' },
+    { key: 'id_entidad', label: 'Entidad', sortable: true, align: 'center' },
     { key: 'descripcion', label: 'Descripcion', sortable: true, align: 'center' },
     { key: 'usuario_creador', label: 'Usuario', sortable: true, align: 'center' },
     { key: 'url_pruebas', label: 'Pruebas', sortable: true, align: 'center' },
@@ -143,22 +158,24 @@ const handleRevision = async (id: string) => {
                 className="border-b border-slate-600 hover:bg-slate-300  transition-colors text-black"
               >
                 {columns.map((column) => (
-                    <td key={column.key} className={`px-4 py-3 text-${column.align}`}>
+                    <td key={column.key} className={`px-4 py-3 text-${column.align} text-xs`}>
                         {column.label === 'Pruebas' ? (
                         <a href={item[column.key as keyof Cumplimiento] as string} target='_blank' >
-                            <button className="px-4 py-2 bg-slate-600 rounded-3xl text-sm text-white hover:bg-blue-800">
+                            <button className="px-4 py-2 bg-slate-600 rounded-3xl text-xs text-white hover:bg-blue-800 ">
                             Ver pruebas
                             </button>
                         </a>
                         ) : column.key === 'id_entidad' ? (
                         (item[column.key] as Entidad).nombre_entidad // o cualquier otro campo
+                        ) :  column.key === 'id_prioridad' ? (
+                        (item[column.key] as Prioridad).id_prioridad // o cualquier otro campo
                         ) : (
                         item[column.key as keyof Cumplimiento] as React.ReactNode
                         )}
                     </td>
                     ))}
                 <td className="px-4 py-3 text-center">
-                    <button className="px-4 py-2 bg-pink-600 rounded-3xl text-sm text-white hover:bg-blue-800"
+                    <button className="px-4 py-2 bg-pink-600 rounded-3xl text-xs text-white hover:bg-blue-800"
                     onClick={() => handleRevision(item.id_cumplimiento) }
                     >
                         Aceptar revisión
